@@ -101,11 +101,74 @@
         .lang-btn:hover:not(.active) { color: #fff; }
 
         /* --- SECCIÓN HERO --- */
-        .hero-section { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 2rem; position: relative; }
-        .hero-subtitle { font-size: 1rem; text-transform: uppercase; letter-spacing: 4px; color: var(--text-muted); margin-bottom: 1.5rem; animation: fadeUp 1s ease forwards; }
+        .hero-section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 6rem 2rem 2rem; position: relative; }
+        
+        /* --- BANNER DE IMAGEN INTEGRADO --- */
+        .hero-banner-container {
+            width: 100vw;
+            height: 35vh; 
+            min-height: 250px;
+            max-height: 400px;
+            margin-top: -2rem; 
+            margin-bottom: 3rem; 
+            position: relative;
+            border-radius: 0;
+            background-image: url('banner.jpg');
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            animation: fadeUp 1s ease forwards;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .hero-banner-container::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-color: var(--bg-dark);
+            opacity: 0.55; 
+            mix-blend-mode: multiply; 
+            z-index: 1;
+        }
+
+        .hero-banner-container::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                linear-gradient(to right, var(--bg-dark) 0%, transparent 15%, transparent 85%, var(--bg-dark) 100%),
+                linear-gradient(to bottom, var(--bg-dark) 0%, transparent 20%, transparent 80%, var(--bg-dark) 100%);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* --- CONTENEDOR LOGO Y TÍTULO --- */
+        .hero-title-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2.5rem;
+            margin-bottom: 1rem;
+            text-align: left; 
+        }
+        
+        .hero-logo {
+            width: 180px; /* Logo más grande */
+            height: auto;
+            animation: fadeUp 1s ease forwards;
+            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.2)); 
+        }
+
+        .hero-title-block {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hero-subtitle { font-size: 1rem; text-transform: uppercase; letter-spacing: 4px; color: var(--text-muted); margin-bottom: 0.8rem; animation: fadeUp 1s ease forwards; }
         
         .hero-title {
-            font-family: 'Playfair Display', serif; font-size: 3.2rem; font-weight: 800; line-height: 1.2; margin-bottom: 1rem; max-width: 1000px;
+            font-family: 'Playfair Display', serif; font-size: 3.2rem; font-weight: 800; line-height: 1.2; margin-bottom: 0; max-width: 1000px;
             background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: fadeUp 1.2s ease forwards;
         }
         
@@ -113,11 +176,7 @@
             color: var(--gold-main); font-family: 'Playfair Display', serif; font-size: 1.4rem; letter-spacing: 2px; margin-bottom: 1.5rem; text-transform: uppercase; animation: fadeUp 1.4s ease forwards;
         }
 
-        .scroll-indicator { position: absolute; bottom: 40px; display: flex; flex-direction: column; align-items: center; gap: 10px; color: var(--text-muted); font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; animation: bounce 2s infinite; }
-        .scroll-indicator::after { content: ''; width: 1px; height: 40px; background: linear-gradient(to bottom, var(--text-muted), transparent); }
-
         @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-10px); } 60% { transform: translateY(-5px); } }
 
         /* --- CONTENEDORES --- */
         .content-section { padding: 5rem 2rem; max-width: 1200px; margin: 0 auto; opacity: 0; transform: translateY(50px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
@@ -143,13 +202,16 @@
         .styled-list li { position: relative; padding-left: 1.8rem; margin-bottom: 1.2rem; color: var(--text-main); font-size: 0.95rem; line-height: 1.6; }
         .styled-list li strong { color: #fff; }
         .styled-list li::before { content: '✦'; position: absolute; left: 0; top: 2px; color: var(--gold-main); font-size: 1rem; }
+        .sub-list { list-style: circle; padding-left: 1.5rem; margin-top: 0.5rem; color: var(--text-muted); }
+        .sub-list li { padding-left: 0.5rem; margin-bottom: 0.5rem; }
+        .sub-list li::before { display: none; }
 
         .btn-sleek { display: inline-flex; align-items: center; background: transparent; color: #fff; text-decoration: none; font-size: 0.9rem; font-weight: 500; border-bottom: 1px solid var(--gold-main); padding-bottom: 5px; transition: all 0.3s ease; margin-top: 1rem; cursor: pointer; }
         .btn-sleek:hover { color: var(--gold-main); gap: 10px; }
         .btn-glow { display: inline-flex; align-items: center; justify-content: center; background: var(--gold-gradient); color: #070913; padding: 0.8rem 2rem; border-radius: 30px; text-decoration: none; font-weight: 700; font-size: 0.95rem; transition: all 0.3s ease; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); margin-top: 1.5rem; text-transform: uppercase; letter-spacing: 1px; }
         .btn-glow:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5); color: #000; }
 
-        /* --- COMITÉ EDITORIAL (Diseño Limpio, SIN Líneas) --- */
+        /* --- COMITÉ EDITORIAL & DIRECTORIO --- */
         .chief-card { background: linear-gradient(145deg, rgba(20, 25, 40, 0.8), rgba(15, 20, 35, 0.9)); border: 1px solid rgba(212, 175, 55, 0.4); border-radius: 20px; padding: 2.5rem; position: relative; box-shadow: 0 10px 30px rgba(212, 175, 55, 0.05); transition: all 0.4s ease; max-width: 600px; margin: 0 auto 3rem auto; text-align: center; }
         .chief-card:hover { box-shadow: 0 15px 40px rgba(212, 175, 55, 0.15); transform: translateY(-5px); }
         
@@ -171,7 +233,6 @@
         
         .academic-email { font-family: 'Playfair Display', serif; color: var(--gold-main); font-size: 1.3rem; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; display: inline-block; margin: 1.5rem 0; letter-spacing: 0.5px; }
         
-        /* Caja de estimación limpia, sin borde lateral */
         .time-estimate-box { background: rgba(255, 255, 255, 0.02); border: 1px solid var(--glass-border); padding: 1.5rem; margin-top: 2rem; border-radius: 12px; color: var(--text-muted); line-height: 1.6; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         .time-estimate-box strong { color: #fff; }
 
@@ -193,6 +254,14 @@
             .floating-nav { top: 1rem; width: 85%; left: 2rem; transform: none; justify-content: flex-start; }
             .language-toggle { top: 1rem; right: 1rem; }
             .multi-column-list { grid-template-columns: 1fr !important; }
+            .hero-banner-container { height: 25vh; margin-top: 1rem; }
+            
+            .hero-title-wrapper {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+            .hero-logo { width: 140px; } /* Ajustado para móviles también */
         }
     </style>
 </head>
@@ -204,6 +273,8 @@
     <nav class="floating-nav">
         <a href="#inicio" class="nav-link"><span class="lang-es">Inicio</span><span class="lang-en">Home</span></a>
         <a href="#acerca" class="nav-link"><span class="lang-es">Acerca de</span><span class="lang-en">About</span></a>
+        <a href="#etica" class="nav-link"><span class="lang-es">Ética</span><span class="lang-en">Ethics</span></a>
+        <a href="#directorio" class="nav-link"><span class="lang-es">Directorio</span><span class="lang-en">Directory</span></a>
         <a href="#comite" class="nav-link"><span class="lang-es">Comité</span><span class="lang-en">Committee</span></a>
         <a href="#autores" class="nav-link"><span class="lang-es">Autores</span><span class="lang-en">Authors</span></a>
         <a href="#publicaciones" class="nav-link"><span class="lang-es">Publicaciones</span><span class="lang-en">Publications</span></a>
@@ -216,15 +287,24 @@
     </div>
 
     <section id="inicio" class="hero-section">
-        <div class="hero-subtitle">
-            <span class="lang-es">Facultad de Ingeniería Química • UADY</span>
-            <span class="lang-en">Faculty of Chemical Engineering • UADY</span>
-        </div>
         
-        <h1 class="hero-title">
-            <span class="lang-es">REVISTA MEXICANA DE CIENCIA<br>E INGENIERÍA APLICADA</span>
-            <span class="lang-en">MEXICAN JOURNAL OF SCIENCE<br> AND APPLIED ENGINEERING</span>
-        </h1>
+        <div class="hero-banner-container"></div>
+
+        <div class="hero-title-wrapper">
+            <img src="Logo.jpg" alt="Logo UADY FIQ" class="hero-logo">
+            
+            <div class="hero-title-block">
+                <div class="hero-subtitle">
+                    <span class="lang-es">Facultad de Ingeniería Química • UADY</span>
+                    <span class="lang-en">Faculty of Chemical Engineering • UADY</span>
+                </div>
+                
+                <h1 class="hero-title">
+                    <span class="lang-es">REVISTA MEXICANA DE CIENCIA<br>E INGENIERÍA APLICADA</span>
+                    <span class="lang-en">MEXICAN JOURNAL OF SCIENCE<br> AND APPLIED ENGINEERING</span>
+                </h1>
+            </div>
+        </div>
         
         <p class="hero-slogan">
             <span class="lang-es">El futuro de la investigación aplicada</span>
@@ -235,9 +315,6 @@
             <span class="lang-es">Plataforma científica de excelencia y acceso abierto para la difusión del conocimiento.</span>
             <span class="lang-en">Scientific platform of excellence and open access for knowledge dissemination.</span>
         </p>
-        <div class="scroll-indicator">
-            <span class="lang-es">Explorar</span><span class="lang-en">Explore</span>
-        </div>
     </section>
 
     <section id="acerca" class="content-section">
@@ -315,6 +392,7 @@
                     <li><strong><span class="lang-es">Revisión:</span><span class="lang-en">Review:</span></strong> <span class="lang-es">Sistema doble ciego con evaluadores externos.</span><span class="lang-en">Double-blind system with external reviewers.</span></li>
                     <li><strong><span class="lang-es">Ética:</span><span class="lang-en">Ethics:</span></strong> <span class="lang-es">Adherencia a las directrices del COPE.</span><span class="lang-en">Adherence to COPE guidelines.</span></li>
                     <li><strong><span class="lang-es">Antiplagio:</span><span class="lang-en">Anti-plagiarism:</span></strong> <span class="lang-es">Evaluación estricta de similitud en manuscritos.</span><span class="lang-en">Strict similarity evaluation software.</span></li>
+                    <li><strong><span class="lang-es">Identificadores Persistentes:</span><span class="lang-en">Persistent Identifiers:</span></strong> <span class="lang-es">Cada artículo recibe un DOI único (en implementación).</span><span class="lang-en">Each article receives a unique DOI (in implementation).</span></li>
                 </ul>
             </div>
         </div>
@@ -339,6 +417,163 @@
                     <li><span class="lang-es">Energías Renovables</span><span class="lang-en">Renewable Energy</span></li>
                     <li><span class="lang-es">Nanotecnología</span><span class="lang-en">Nanotechnology</span></li>
                 </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="etica" class="content-section">
+        <h2 class="section-header">
+            <span class="lang-es">Código de Ética</span><span class="lang-en">Code of Ethics</span>
+        </h2>
+
+        <div class="glass-card" style="margin-bottom: 2rem;">
+            <h3 class="article-title" style="color: var(--gold-main); font-size: 1.6rem; margin-bottom: 1.5rem;">
+                <span class="lang-es">Responsabilidades de la Revista</span><span class="lang-en">Journal Responsibilities</span>
+            </h3>
+            <ul class="styled-list">
+                <li><span class="lang-es">RMCIA se compromete a recibir el artículo enviado, revisar el cumplimiento de los criterios de pertinencia temática y de forma correspondientes al primer filtro editorial. De ser así, enviarlo a revisión con especialistas. Informar al autor/a de correspondencia la fase del proceso, revisar las observaciones de los revisores, emitir dictamen académico y programar la publicación si es aceptado.</span>
+                    <span class="lang-en">RMCIA commits to receiving the submitted article, verifying compliance with thematic relevance and formatting criteria for the first editorial filter. If compliant, send it for review with specialists. Inform the corresponding author of the process phase, review the reviewers' observations, issue an academic decision, and schedule publication if accepted.</span></li>
+                
+                <li><span class="lang-es">RMCIA tiene la responsabilidad de informar al autor/a la fase del proceso de edición correspondiente.</span>
+                    <span class="lang-en">RMCIA is responsible for informing the author of the corresponding editorial phase.</span></li>
+                
+                <li><span class="lang-es">RMCIA mantendrá informado al autor/a en las siguientes fases del proceso editorial:</span>
+                    <span class="lang-en">RMCIA will keep the author informed during the following editorial phases:</span>
+                    <ul class="sub-list">
+                        <li><span class="lang-es">Recepción del original.</span><span class="lang-en">Receipt of the original manuscript.</span></li>
+                        <li><span class="lang-es">Aceptación o rechazo en primer filtro.</span><span class="lang-en">Acceptance or rejection in the first filter.</span></li>
+                        <li><span class="lang-es">Resultados de los dictámenes académicos.</span><span class="lang-en">Results of the academic reviews.</span></li>
+                        <li><span class="lang-es">Estatus en prensa (aceptación para publicación).</span><span class="lang-en">In-press status (acceptance for publication).</span></li>
+                        <li><span class="lang-es">Estatus publicado (publicación en línea).</span><span class="lang-en">Published status (online publication).</span></li>
+                    </ul>
+                </li>
+                
+                <li><span class="lang-es">La publicación de un artículo dependerá exclusivamente de:</span>
+                    <span class="lang-en">The publication of an article will depend exclusively on:</span>
+                    <ul class="sub-list">
+                        <li><span class="lang-es">La concordancia con la temática de RMCIA.</span><span class="lang-en">Concordance with RMCIA's thematic scope.</span></li>
+                        <li><span class="lang-es">El cumplimiento estricto de los requisitos de forma.</span><span class="lang-en">Strict compliance with formatting requirements.</span></li>
+                        <li><span class="lang-es">Los resultados de la evaluación académica de los revisores.</span><span class="lang-en">The results of the reviewers' academic evaluation.</span></li>
+                        <li><span class="lang-es">La satisfacción de las observaciones requeridas.</span><span class="lang-en">Satisfaction of the observations required by reviewers.</span></li>
+                    </ul>
+                </li>
+
+                <li><span class="lang-es">Las decisiones editoriales no se verán afectadas por razones de nacionalidad, etnicidad, posición política o religión de los autores.</span>
+                    <span class="lang-en">Editorial decisions will not be affected by the nationality, ethnicity, political position, or religion of the authors.</span></li>
+                
+                <li><span class="lang-es">RMCIA garantizará que los artículos enviados por los integrantes de sus cuerpos editoriales y revisores serán sometidos a los mismos procesos de evaluación doble ciego.</span>
+                    <span class="lang-en">RMCIA will guarantee that articles submitted by members of its editorial boards and reviewers undergo the same double-blind evaluation processes.</span></li>
+                
+                <li><span class="lang-es">RMCIA se compromete a respetar estrictamente el proceso de dictamen establecido.</span>
+                    <span class="lang-en">RMCIA commits to strictly respecting the established review process.</span></li>
+                
+                <li><span class="lang-es">En caso de inconformidad con los dictámenes, RMCIA solicitará al autor un documento justificando la razón, y lo remitirá al Comité Editorial, quien decidirá lo que procede.</span>
+                    <span class="lang-en">In case of disagreement with the reviews, RMCIA will request a justification document from the author and forward it to the Editorial Committee for a final decision.</span></li>
+                
+                <li><span class="lang-es">Los integrantes de los cuerpos editoriales y dictaminadores se comprometen a no utilizar en sus propios trabajos, materiales inéditos que formen parte de artículos sometidos a RMCIA.</span>
+                    <span class="lang-en">Editorial board members and reviewers commit not to use unpublished materials from articles submitted to RMCIA in their own work.</span></li>
+            </ul>
+        </div>
+
+        <div class="glass-card" style="margin-bottom: 2rem;">
+            <h3 class="article-title" style="color: var(--gold-main); font-size: 1.6rem; margin-bottom: 1.5rem;">
+                <span class="lang-es">Responsabilidades de los Autores</span><span class="lang-en">Authors' Responsibilities</span>
+            </h3>
+            <ul class="styled-list">
+                <li><span class="lang-es">El autor se compromete a que el artículo es un trabajo inédito. Se rechazará si el texto completo ya fue publicado, si usa fragmentos extensos de materiales previos, o si está contenido en memorias publicadas in extenso (impreso o electrónico, en cualquier idioma).</span>
+                    <span class="lang-en">The author commits that the article is an unpublished work. It will be rejected if the full text has been published, uses extensive fragments of previous materials, or is contained in published proceedings in extenso (print or electronic, in any language).</span></li>
+                
+                <li><span class="lang-es">Es responsabilidad del autor/a evitar cualquier conflicto de interés en la publicación de datos y resultados.</span>
+                    <span class="lang-en">It is the author's responsibility to avoid any conflict of interest in the publication of data and results.</span></li>
+                
+                <li><span class="lang-es">El autor deberá citar y referenciar claramente cualquier fragmento tomado de la obra de otro o propia (incluyendo fuentes de datos y figuras). El incumplimiento puede ser considerado plagio y el trabajo será descartado.</span>
+                    <span class="lang-en">The author must clearly cite and reference any fragment taken from another's work or their own (including data sources and figures). Non-compliance may be considered plagiarism, and the work will be discarded.</span></li>
+                
+                <li><span class="lang-es">Se considera una buena práctica establecer los créditos a todas las personas que hayan colaborado en los proyectos de investigación.</span>
+                    <span class="lang-en">It is considered good practice to credit all individuals who collaborated on the research projects.</span></li>
+                
+                <li><span class="lang-es">El uso de materiales no publicados de terceros deberá contar con autorización expresa de los interesados.</span>
+                    <span class="lang-en">The use of unpublished third-party materials requires express authorization from the interested parties.</span></li>
+                
+                <li><span class="lang-es">El autor/a no debe remitir su trabajo a cualquier otra publicación mientras esté sometido en RMCIA. Hacerlo suspenderá el proceso de revisión.</span>
+                    <span class="lang-en">The author must not submit their work to any other publication while it is under review at RMCIA. Doing so will suspend the review process.</span></li>
+                
+                <li><span class="lang-es">El autor acepta en su integridad las normas, criterios y procedimientos editoriales de la Revista.</span>
+                    <span class="lang-en">The author fully accepts the journal's editorial norms, criteria, and procedures.</span></li>
+            </ul>
+        </div>
+
+        <div class="glass-card">
+            <h3 class="article-title" style="color: var(--gold-main); font-size: 1.6rem; margin-bottom: 1.5rem;">
+                <span class="lang-es">Responsabilidades de los Revisores</span><span class="lang-en">Reviewers' Responsibilities</span>
+            </h3>
+            <ul class="styled-list">
+                <li><span class="lang-es">Los revisores definen si un material es publicable o no. Si no lo es, deben proveer razones suficientes para sustentar el rechazo y orientar a los autores para la mejora del texto.</span>
+                    <span class="lang-en">Reviewers define whether a material is publishable or not. If not, they must provide sufficient reasons to support the rejection and guide the authors to improve the text.</span></li>
+                
+                <li><span class="lang-es">Sólo deberán aceptar aquellos textos sobre los que tengan suficiente competencia, experiencia y conocimiento para desarrollar la labor.</span>
+                    <span class="lang-en">They should only accept texts for which they have sufficient competence, experience, and knowledge to carry out the task.</span></li>
+                
+                <li><span class="lang-es">Deberán evitar cualquier conflicto de interés que identifiquen en referencia al texto que les ha sido enviado.</span>
+                    <span class="lang-en">They must avoid any conflict of interest they identify regarding the text sent to them.</span></li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="directorio" class="content-section">
+        <h2 class="section-header">
+            <span class="lang-es">Directorio Institucional</span><span class="lang-en">Institutional Directory</span>
+        </h2>
+
+        <div class="glass-card" style="margin-bottom: 2rem;">
+            <h3 class="article-title" style="color: var(--gold-main); font-size: 1.6rem; margin-bottom: 2rem; text-align: center;">
+                <span class="lang-es">Universidad Autónoma de Yucatán</span><span class="lang-en">Autonomous University of Yucatan</span>
+            </h3>
+            
+            <div style="text-align: center; margin-bottom: 2.5rem;">
+                <div class="member-role"><span class="lang-es">Rector</span><span class="lang-en">President / Rector</span></div>
+                <div class="member-name" style="font-size: 1.5rem;">Dr. José de Jesús Williams</div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; text-align: center;">
+                <div>
+                    <div class="member-role"><span class="lang-es">Secretaria General</span><span class="lang-en">Secretary General</span></div>
+                    <div class="member-name" style="font-size: 1.1rem;">Dra. Celia Esperanza Rosado Avilés</div>
+                </div>
+                <div>
+                    <div class="member-role"><span class="lang-es">Director General de Desarrollo Académico</span><span class="lang-en">General Director of Academic Development</span></div>
+                    <div class="member-name" style="font-size: 1.1rem;">Mtro. en Ciencias Carlos Alberto Estrada Pinto</div>
+                </div>
+                <div>
+                    <div class="member-role"><span class="lang-es">Coordinador General de Extensión</span><span class="lang-en">General Coordinator of Extension</span></div>
+                    <div class="member-name" style="font-size: 1.1rem;">Dr. Francisco Fernández Repetto</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <h3 class="article-title" style="color: var(--gold-main); font-size: 1.6rem; margin-bottom: 2rem; text-align: center;">
+                <span class="lang-es">Facultad de Ingeniería Química</span><span class="lang-en">Faculty of Chemical Engineering</span>
+            </h3>
+            
+            <div style="text-align: center; margin-bottom: 2.5rem;">
+                <div class="member-role"><span class="lang-es">Directora</span><span class="lang-en">Director / Dean</span></div>
+                <div class="member-name" style="font-size: 1.5rem;">M. en C. María Dalmira Rodríguez Martín</div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; text-align: center;">
+                <div>
+                    <div class="member-role"><span class="lang-es">Secretario Académico</span><span class="lang-en">Academic Secretary</span></div>
+                    <div class="member-name" style="font-size: 1.1rem;">M. en C. Ángel Ramiro Trejo Irigoyen</div>
+                </div>
+                <div>
+                    <div class="member-role"><span class="lang-es">Secretario Administrativo</span><span class="lang-en">Administrative Secretary</span></div>
+                    <div class="member-name" style="font-size: 1.1rem;">IQI. Roger Agustín Bargas Interián</div>
+                </div>
+                <div>
+                    <div class="member-role"><span class="lang-es">Coordinadora de Posgrado e Investigación</span><span class="lang-en">Coordinator of Postgraduate and Research</span></div>
+                    <div class="member-name" style="font-size: 1.1rem;">Dra. Leydi Maribel Carrillo Cocom</div>
+                </div>
             </div>
         </div>
     </section>
@@ -586,7 +821,6 @@
                 const numStr = "0" + (index + 1);
                 const title = lang === 'es' ? art.titulo_es : art.titulo_en;
                 const btnText = lang === 'es' ? 'Leer Artículo PDF →' : 'Read Article PDF →';
-                // Solo traducimos Vol y No si es necesario, pero mantenemos el número
                 const issueText = lang === 'es' ? art.edicion : art.edicion.replace("Vol.", "Vol.").replace("No.", "Issue"); 
 
                 container.innerHTML += `
