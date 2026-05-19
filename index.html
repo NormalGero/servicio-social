@@ -785,24 +785,11 @@
         const articlesData = [
             {
                 edicion: "Vol. 1, No. 1",
-                titulo_es: "Evaluación del proceso de esterilización de un alimento a base de filete de pez León envasado en frascos de vidrio",
-                titulo_en: "Evaluation of the sterilization process of a Lionfish fillet-based food packed in glass jars",
-                autores: "Canul-Dzul, C.D.; Hoil-Centeno, F.A.; Castañeda-Pérez, E.; Betancur-Ancona, D.",
-                temas: ["química", "alimentos", "esterilización", "biotecnología", "pez león", "food", "chemistry"], link: "#"
-            },
-            {
-                edicion: "Vol. 1, No. 1",
                 titulo_es: "Dinámica de Fluidos Computacional como Herramienta Didáctica en Ingeniería de Reactores",
                 titulo_en: "Computational Fluid Dynamics as a Didactic Tool in Reactor Engineering",
                 autores: "Baz-Rodríguez, S.; Zitlalpopoca-Soriano, A.; Gijón-Arreortúa, I.",
-                temas: ["fluidos", "reactores", "física", "ingeniería química", "fluids", "reactors"], link: "#"
-            },
-            {
-                edicion: "Vol. 1, No. 1",
-                titulo_es: "Diseño compacto de almacenes y gestión ABC-FIFO para productos de alta rotación",
-                titulo_en: "Compact warehouse design and ABC-FIFO management for high turnover products",
-                autores: "Chim-Poot, J.J.; Martínez-Isidro, P.; Cantón-Puerto, D.; López-Flores, R.",
-                temas: ["logística", "almacenes", "gestión", "ingeniería industrial", "logistics", "management"], link: "#"
+                temas: ["dinámica de fluidos computacional", "CFD", "fluidos", "reactores", "ingeniería química", "computational fluid dynamics", "reactors", "chemical engineering"],
+                link: "https://zenodo.org/records/20278826"
             }
         ];
 
@@ -830,7 +817,7 @@
                             <div class="issue-badge">${issueText}</div>
                             <div class="article-title">${title}</div>
                             <div class="article-authors">${art.autores}</div>
-                            <a href="${art.link}" class="btn-sleek" target="_blank">${btnText}</a>
+                            <a href="${art.link}" class="btn-sleek" target="_blank" rel="noopener noreferrer">${btnText}</a>
                         </div>
                     </div>`;
             });
