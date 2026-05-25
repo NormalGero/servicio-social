@@ -17,13 +17,52 @@
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             
-            /* Degradado y color Oro exacto */
+            /* Degradados y color oro */
             --gold-gradient: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            --title-gradient: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
             --gold-main: #d4af37;
             
             /* Glassmorphism */
             --glass-bg: rgba(255, 255, 255, 0.03);
             --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+
+        /* Variables adicionales usadas por ambos modos */
+        :root {
+            --heading-main: #ffffff;
+            --card-bg: rgba(15, 20, 35, 0.6);
+            --card-bg-strong: linear-gradient(145deg, rgba(20, 25, 40, 0.8), rgba(15, 20, 35, 0.9));
+            --footer-bg: rgba(0,0,0,0.6);
+            --field-bg: rgba(0,0,0,0.3);
+            --shadow-soft: rgba(0,0,0,0.5);
+            --banner-edge-opacity: 1;
+            --banner-overlay: rgba(7, 9, 19, 0.55);
+            --banner-overlay-blend: multiply;
+        }
+
+        /* Modo día: fondo blanco/azulado con dorado más contrastante */
+        body.light-mode {
+            --bg-dark: #eaf4fb;
+            --bg-nav: rgba(239, 247, 252, 0.88);
+            --text-main: #1f2d3d;
+            --text-muted: #50677c;
+            --heading-main: #10243a;
+            --gold-main: #b38728;
+            --title-gradient: linear-gradient(90deg, #75510f 0%, #a9781f 32%, #c99f36 58%, #815b15 100%);
+            --glass-bg: rgba(18, 92, 143, 0.075);
+            --glass-border: rgba(18, 78, 120, 0.22);
+            --card-bg: rgba(250, 253, 255, 0.78);
+            --card-bg-strong: linear-gradient(145deg, rgba(255,255,255,0.94), rgba(226,240,250,0.90));
+            --footer-bg: rgba(232, 243, 250, 0.90);
+            --field-bg: rgba(250, 253, 255, 0.82);
+            --shadow-soft: rgba(14, 50, 78, 0.18);
+            --banner-overlay: rgba(234, 244, 251, 0.18);
+            --banner-overlay-blend: normal;
+        }
+
+        body {
+            transition: background-color 0.35s ease, color 0.35s ease;
         }
 
         * {
@@ -76,7 +115,7 @@
             background: var(--bg-nav); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border); border-radius: 40px;
             padding: 0.5rem 1rem; display: flex; gap: 0.5rem; z-index: 100;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); max-width: 95vw; overflow-x: auto; white-space: nowrap;
+            box-shadow: 0 10px 30px var(--shadow-soft); max-width: 95vw; overflow-x: auto; white-space: nowrap;
         }
 
         .nav-link {
@@ -90,7 +129,7 @@
             position: fixed; top: 1.5rem; right: 2rem; z-index: 100;
             background: var(--bg-nav); backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border); border-radius: 30px;
-            display: flex; padding: 0.25rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: flex; padding: 0.25rem; box-shadow: 0 10px 30px var(--shadow-soft);
         }
         .lang-btn {
             background: transparent; color: var(--text-muted); border: none; padding: 0.4rem 0.8rem;
@@ -98,7 +137,23 @@
             cursor: pointer; transition: all 0.3s ease;
         }
         .lang-btn.active { background: rgba(212, 175, 55, 0.15); color: var(--gold-main); }
-        .lang-btn:hover:not(.active) { color: #fff; }
+
+        .lang-btn:hover:not(.active) { color: var(--heading-main); }
+
+        /* --- BOTÓN DE MODO DÍA / NOCHE --- */
+        .theme-toggle {
+            position: fixed; top: 1.5rem; right: 8.4rem; left: auto; z-index: 100;
+            background: var(--bg-nav); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border); border-radius: 30px;
+            padding: 0.25rem; box-shadow: 0 10px 30px var(--shadow-soft);
+        }
+        .theme-btn {
+            background: rgba(212, 175, 55, 0.12); color: var(--gold-main); border: none;
+            padding: 0.55rem 0.95rem; border-radius: 24px; font-family: 'Inter', sans-serif;
+            font-size: 0.82rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease;
+            display: inline-flex; align-items: center; gap: 0.45rem; white-space: nowrap;
+        }
+        .theme-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(212, 175, 55, 0.18); }
 
         /* --- SECCIÓN HERO --- */
         .hero-section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 6rem 2rem 2rem; position: relative; }
@@ -113,7 +168,7 @@
             margin-bottom: 3rem; 
             position: relative;
             border-radius: 0;
-            background-image: url('banner.jpg');
+            background-image: url('banner.png');
             background-size: cover;
             background-position: center;
             box-shadow: 0 10px 40px rgba(0,0,0,0.6);
@@ -126,9 +181,9 @@
             content: '';
             position: absolute;
             inset: 0;
-            background-color: var(--bg-dark);
-            opacity: 0.55; 
-            mix-blend-mode: multiply; 
+            background: var(--banner-overlay);
+            opacity: 1; 
+            mix-blend-mode: var(--banner-overlay-blend); 
             z-index: 1;
         }
 
@@ -137,8 +192,8 @@
             position: absolute;
             inset: 0;
             background: 
-                linear-gradient(to right, var(--bg-dark) 0%, transparent 15%, transparent 85%, var(--bg-dark) 100%),
-                linear-gradient(to bottom, var(--bg-dark) 0%, transparent 20%, transparent 80%, var(--bg-dark) 100%);
+                linear-gradient(to right, var(--bg-dark) 0%, transparent 14%, transparent 86%, var(--bg-dark) 100%),
+                linear-gradient(to bottom, var(--bg-dark) 0%, transparent 18%, transparent 82%, var(--bg-dark) 100%);
             z-index: 2;
             pointer-events: none;
         }
@@ -169,7 +224,7 @@
         
         .hero-title {
             font-family: 'Playfair Display', serif; font-size: 3.2rem; font-weight: 800; line-height: 1.2; margin-bottom: 0; max-width: 1000px;
-            background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: fadeUp 1.2s ease forwards;
+            background: var(--title-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: fadeUp 1.2s ease forwards;
         }
         
         .hero-slogan {
@@ -181,70 +236,106 @@
         /* --- CONTENEDORES --- */
         .content-section { padding: 5rem 2rem; max-width: 1200px; margin: 0 auto; opacity: 0; transform: translateY(50px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
         .content-section.visible { opacity: 1; transform: translateY(0); }
-        .section-header { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: #fff; margin-bottom: 2rem; display: flex; align-items: center; gap: 15px; }
+        .section-header { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--heading-main); margin-bottom: 2rem; display: flex; align-items: center; gap: 15px; }
         .section-header::after { content: ''; height: 1px; flex-grow: 1; background: linear-gradient(to right, var(--glass-border), transparent); }
 
         /* --- TARJETAS --- */
         .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin-top: 2rem; }
         .glass-card {
-            background: rgba(15, 20, 35, 0.6); backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 20px;
+            background: var(--card-bg); backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 20px;
             padding: 2.5rem; position: relative; overflow: hidden; transition: all 0.4s ease;
         }
-        .glass-card:hover { transform: translateY(-5px); border-color: rgba(212, 175, 55, 0.4); box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 30px rgba(212, 175, 55, 0.05); }
-        .card-number { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 800; color: rgba(255,255,255,0.05); position: absolute; top: 10px; right: 20px; z-index: 0; }
+        .glass-card:hover { transform: translateY(-5px); border-color: rgba(212, 175, 55, 0.4); box-shadow: 0 20px 40px var(--shadow-soft), 0 0 30px rgba(212, 175, 55, 0.08); }
+        .card-number { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 800; color: rgba(13, 74, 118, 0.09); position: absolute; top: 10px; right: 20px; z-index: 0; }
         .card-content { position: relative; z-index: 1; }
         .issue-badge { display: inline-block; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--gold-main); padding: 0.4rem 1rem; border-radius: 30px; font-size: 0.75rem; font-weight: 600; margin-bottom: 1.5rem; letter-spacing: 1px; text-transform: uppercase; }
-        .article-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 600; color: #fff; line-height: 1.4; margin-bottom: 1rem; }
+        .article-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 600; color: var(--heading-main); line-height: 1.4; margin-bottom: 1rem; }
         .article-authors { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.6; }
 
         /* --- LISTAS ESTILIZADAS --- */
         .styled-list { list-style: none; padding-left: 0; margin-bottom: 0; }
         .styled-list li { position: relative; padding-left: 1.8rem; margin-bottom: 1.2rem; color: var(--text-main); font-size: 0.95rem; line-height: 1.6; }
-        .styled-list li strong { color: #fff; }
+        .styled-list li strong { color: var(--heading-main); }
         .styled-list li::before { content: '✦'; position: absolute; left: 0; top: 2px; color: var(--gold-main); font-size: 1rem; }
         .sub-list { list-style: circle; padding-left: 1.5rem; margin-top: 0.5rem; color: var(--text-muted); }
         .sub-list li { padding-left: 0.5rem; margin-bottom: 0.5rem; }
         .sub-list li::before { display: none; }
 
-        .btn-sleek { display: inline-flex; align-items: center; background: transparent; color: #fff; text-decoration: none; font-size: 0.9rem; font-weight: 500; border-bottom: 1px solid var(--gold-main); padding-bottom: 5px; transition: all 0.3s ease; margin-top: 1rem; cursor: pointer; }
+        .btn-sleek { display: inline-flex; align-items: center; background: transparent; color: var(--heading-main); text-decoration: none; font-size: 0.9rem; font-weight: 500; border-bottom: 1px solid var(--gold-main); padding-bottom: 5px; transition: all 0.3s ease; margin-top: 1rem; cursor: pointer; }
         .btn-sleek:hover { color: var(--gold-main); gap: 10px; }
         .btn-glow { display: inline-flex; align-items: center; justify-content: center; background: var(--gold-gradient); color: #070913; padding: 0.8rem 2rem; border-radius: 30px; text-decoration: none; font-weight: 700; font-size: 0.95rem; transition: all 0.3s ease; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); margin-top: 1.5rem; text-transform: uppercase; letter-spacing: 1px; }
         .btn-glow:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5); color: #000; }
 
         /* --- COMITÉ EDITORIAL & DIRECTORIO --- */
-        .chief-card { background: linear-gradient(145deg, rgba(20, 25, 40, 0.8), rgba(15, 20, 35, 0.9)); border: 1px solid rgba(212, 175, 55, 0.4); border-radius: 20px; padding: 2.5rem; position: relative; box-shadow: 0 10px 30px rgba(212, 175, 55, 0.05); transition: all 0.4s ease; max-width: 600px; margin: 0 auto 3rem auto; text-align: center; }
+        .chief-card { background: var(--card-bg-strong); border: 1px solid rgba(212, 175, 55, 0.4); border-radius: 20px; padding: 2.5rem; position: relative; box-shadow: 0 10px 30px rgba(212, 175, 55, 0.05); transition: all 0.4s ease; max-width: 600px; margin: 0 auto 3rem auto; text-align: center; }
         .chief-card:hover { box-shadow: 0 15px 40px rgba(212, 175, 55, 0.15); transform: translateY(-5px); }
         
-        .associate-card { background: rgba(15, 20, 35, 0.6); backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 16px; padding: 2rem; transition: all 0.4s ease; text-align: center; }
+        .associate-card { background: var(--card-bg); backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 16px; padding: 2rem; transition: all 0.4s ease; text-align: center; }
         .associate-card:hover { border-color: rgba(255,255,255,0.2); transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
         
         .member-role { color: var(--gold-main); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.8rem; font-weight: 600; }
-        .member-name { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #fff; margin-bottom: 0.5rem; }
+        .member-name { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--heading-main); margin-bottom: 0.5rem; }
         .associate-card .member-name { font-size: 1.25rem; }
         .member-inst { color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; }
 
         /* --- PESTAÑAS PARA AUTORES --- */
         .inner-tabs-container { border-bottom: 1px solid var(--glass-border); display: flex; gap: 1rem; margin-bottom: 2rem; overflow-x: auto; }
         .inner-tab-btn { background: none; border: none; color: var(--text-muted); font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 500; padding: 1rem 1.5rem; cursor: pointer; transition: all 0.3s ease; border-bottom: 2px solid transparent; white-space: nowrap; }
-        .inner-tab-btn.active { color: #fff; border-bottom: 2px solid var(--gold-main); }
-        .inner-tab-btn:hover { color: #fff; background: rgba(255,255,255,0.02); }
+        .inner-tab-btn.active { color: var(--heading-main); border-bottom: 2px solid var(--gold-main); }
+        .inner-tab-btn:hover { color: var(--heading-main); background: rgba(255,255,255,0.02); }
         .inner-tab-content { display: none; animation: fadeUp 0.4s ease forwards; }
         .inner-tab-content.active { display: block; }
         
         .academic-email { font-family: 'Playfair Display', serif; color: var(--gold-main); font-size: 1.3rem; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; display: inline-block; margin: 1.5rem 0; letter-spacing: 0.5px; }
         
         .time-estimate-box { background: rgba(255, 255, 255, 0.02); border: 1px solid var(--glass-border); padding: 1.5rem; margin-top: 2rem; border-radius: 12px; color: var(--text-muted); line-height: 1.6; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        .time-estimate-box strong { color: #fff; }
+        .time-estimate-box strong { color: var(--heading-main); }
 
         /* --- BUSCADOR --- */
-        #searchInput { width: 100%; padding: 1.5rem 2rem; font-size: 1.1rem; font-family: 'Inter', sans-serif; background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); border-radius: 30px; color: #fff; margin-bottom: 2rem; transition: all 0.3s ease; backdrop-filter: blur(10px); }
+        #searchInput { width: 100%; padding: 1.5rem 2rem; font-size: 1.1rem; font-family: 'Inter', sans-serif; background: var(--field-bg); border: 1px solid var(--glass-border); border-radius: 30px; color: var(--text-main); margin-bottom: 2rem; transition: all 0.3s ease; backdrop-filter: blur(10px); }
         #searchInput:focus { outline: none; border-color: var(--gold-main); box-shadow: 0 0 20px rgba(212, 175, 55, 0.1); }
 
         /* --- FOOTER Y CONTACTO --- */
-        .footer { background: rgba(0,0,0,0.6); backdrop-filter: blur(20px); border-top: 1px solid var(--glass-border); padding: 5rem 2rem 2rem; margin-top: 4rem; position: relative; }
+        .footer { background: var(--footer-bg); backdrop-filter: blur(20px); border-top: 1px solid var(--glass-border); padding: 5rem 2rem 2rem; margin-top: 4rem; position: relative; }
         .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; max-width: 1200px; margin: 0 auto 3rem; }
-        .contact-item h4 { color: #fff; font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem; }
+        .contact-item h4 { color: var(--heading-main); font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem; }
         .contact-item p { color: var(--text-muted); line-height: 1.8; font-size: 0.95rem; }
+
+
+        body:not(.light-mode) .card-number { color: rgba(255,255,255,0.05); }
+        body:not(.light-mode) .article-title,
+        body:not(.light-mode) .section-header,
+        body:not(.light-mode) .member-name,
+        body:not(.light-mode) .styled-list li strong,
+        body:not(.light-mode) .btn-sleek,
+        body:not(.light-mode) .contact-item h4,
+        body:not(.light-mode) .inner-tab-btn.active,
+        body:not(.light-mode) .inner-tab-btn:hover,
+        body:not(.light-mode) .time-estimate-box strong { color: #fff; }
+
+        body.light-mode .ambient-background {
+            background:
+                radial-gradient(circle at 50% 0%, rgba(18, 92, 143, 0.28) 0%, rgba(234, 244, 251, 0.96) 45%, var(--bg-dark) 100%),
+                linear-gradient(135deg, rgba(255,255,255,0.72) 0%, rgba(219,237,249,0.92) 100%);
+        }
+        body.light-mode .firefly { opacity: 0.25; box-shadow: 0 0 6px currentColor, 0 0 12px currentColor; }
+        body.light-mode .floating-nav,
+        body.light-mode .language-toggle,
+        body.light-mode .theme-toggle,
+        body.light-mode .glass-card,
+        body.light-mode .associate-card,
+        body.light-mode .chief-card,
+        body.light-mode #searchInput,
+        body.light-mode .footer {
+            box-shadow: 0 16px 35px rgba(14, 50, 78, 0.12);
+        }
+        body.light-mode .hero-banner-container { box-shadow: 0 18px 45px rgba(14, 50, 78, 0.20); }
+        body.light-mode .nav-link:hover { background: rgba(13, 74, 118, 0.06); border-color: rgba(197,155,45,0.28); }
+        body.light-mode .issue-badge { background: rgba(197,155,45,0.10); border-color: rgba(197,155,45,0.22); }
+        body.light-mode .btn-glow { color: #10243a; }
+        body.light-mode .hero-logo { filter: drop-shadow(0 10px 18px rgba(179, 135, 40, 0.22)); }
+        body.light-mode .hero-title { text-shadow: 0 1px 1px rgba(16, 36, 58, 0.08); }
+        body.light-mode #searchInput::placeholder { color: #6a7a89; }
 
         /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
@@ -253,6 +344,8 @@
             .section-header { font-size: 2rem; }
             .floating-nav { top: 1rem; width: 85%; left: 2rem; transform: none; justify-content: flex-start; }
             .language-toggle { top: 1rem; right: 1rem; }
+            .theme-toggle { top: 4.2rem; right: 1rem; left: auto; }
+            .theme-btn { padding: 0.45rem 0.75rem; font-size: 0.76rem; }
             .multi-column-list { grid-template-columns: 1fr !important; }
             .hero-banner-container { height: 25vh; margin-top: 1rem; }
             
@@ -281,6 +374,12 @@
         <a href="#contacto" class="nav-link"><span class="lang-es">Contacto</span><span class="lang-en">Contact</span></a>
     </nav>
 
+    <div class="theme-toggle">
+        <button id="themeToggle" class="theme-btn" onclick="toggleTheme()" aria-label="Modo día activo. Cambiar a modo noche">
+            ☀️ <span class="lang-es">Modo día</span><span class="lang-en">Day mode</span>
+        </button>
+    </div>
+
     <div class="language-toggle">
         <button class="lang-btn active" onclick="setLanguage('es', this)">ES</button>
         <button class="lang-btn" onclick="setLanguage('en', this)">EN</button>
@@ -291,7 +390,7 @@
         <div class="hero-banner-container"></div>
 
         <div class="hero-title-wrapper">
-            <img src="Logo.jpg" alt="Logo UADY FIQ" class="hero-logo">
+            <img src="Logo-dia.png" alt="Logo UADY FIQ" class="hero-logo" id="themeLogo">
             
             <div class="hero-title-block">
                 <div class="hero-subtitle">
@@ -742,6 +841,53 @@
             if(lang === 'es') searchInput.placeholder = "Ej. Biotecnología, Vol. 1...";
             else searchInput.placeholder = "Ex. Biotechnology, Vol. 1...";
         }
+
+
+        // 1.1 CONTROL DE TEMA DÍA / NOCHE
+        // Modo día = diseño claro con fondo blanco.
+        // Modo noche = diseño oscuro original.
+        function normalizeTheme(theme) {
+            if (theme === 'light') return 'day';
+            if (theme === 'dark') return 'night';
+            return theme === 'night' ? 'night' : 'day';
+        }
+
+        function updateThemeButton(theme) {
+            const btn = document.getElementById('themeToggle');
+            if (!btn) return;
+
+            if (theme === 'day') {
+                btn.innerHTML = '☀️ <span class="lang-es">Modo día</span><span class="lang-en">Day mode</span>';
+                btn.setAttribute('aria-label', 'Modo día activo. Cambiar a modo noche');
+                btn.setAttribute('title', 'Modo día activo. Clic para cambiar a modo noche.');
+            } else {
+                btn.innerHTML = '🌙 <span class="lang-es">Modo noche</span><span class="lang-en">Night mode</span>';
+                btn.setAttribute('aria-label', 'Modo noche activo. Cambiar a modo día');
+                btn.setAttribute('title', 'Modo noche activo. Clic para cambiar a modo día.');
+            }
+        }
+
+        function setTheme(theme) {
+            const normalizedTheme = normalizeTheme(theme);
+            const isDay = normalizedTheme === 'day';
+            document.body.classList.toggle('light-mode', isDay);
+
+            const logo = document.getElementById('themeLogo');
+            if (logo) {
+                logo.src = isDay ? 'Logo-dia.png' : 'Logo-noche.png';
+            }
+
+            localStorage.setItem('rmcia-theme', normalizedTheme);
+            updateThemeButton(normalizedTheme);
+        }
+
+        function toggleTheme() {
+            const currentTheme = document.body.classList.contains('light-mode') ? 'day' : 'night';
+            const nextTheme = currentTheme === 'day' ? 'night' : 'day';
+            setTheme(nextTheme);
+        }
+
+        setTheme(normalizeTheme(localStorage.getItem('rmcia-theme') || 'day'));
 
         // 2. LUCIÉRNAGAS
         function createFireflies() {
